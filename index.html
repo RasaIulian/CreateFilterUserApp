@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>100 Users App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section class="container" id="left">
+      <input
+        id="search"
+        type="search"
+        placeholder="Search user"
+        onkeyup="setTimeout(search, 300)"
+      />
+    </section>
+    <section class="container" id="right">
+      <button onclick="displayUsers()">Generate Users</button>
+
+      <ul id="usersList"></ul>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>

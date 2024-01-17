@@ -1,0 +1,93 @@
+/* Start reset */
+html {
+  font-size: 10px; /*stabilim dim de 1 rem*/
+}
+
+body {
+  font-family: sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+ol {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+input,
+input:focus,
+textarea,
+textarea:focus {
+  border: unset;
+  outline: unset;
+  box-shadow: unset;
+}
+
+/* end reset */
+
+#usersList * {
+  font-size: 1.5rem;
+  padding: 2px;
+  cursor: pointer;
+}
+.container {
+  margin: 10px;
+}
+
+input {
+  padding: 3px;
+  border: 2px solid grey;
+
+  border-radius: 5px;
+  margin-right: 1rem;
+}
+input:focus {
+  background-color: #fafafa;
+  border: 2px solid black;
+}
+button {
+  padding: 3px 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: lightgreen;
+  transition: 0.3s ease-in;
+  margin-bottom: 0.5rem;
+  height: 3.5rem;
+}
+button:hover {
+  background-color: #fafafa;
+  border: 2px solid grey;
+}
+
+#left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  max-width: 55rem;
+  border-right: 2px solid black;
+  margin-bottom: 1rem;
+}
+
+#right {
+  width: 80%;
+  position: relative;
+  right: -25rem;
+}
+ul {
+  max-width: 100%;
+}
+ul li {
+  display: flex;
+  display: inline-block;
+  min-width: 25rem;
+}
