@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>100 Users App</title>
     <link rel="stylesheet" href="style.css" />
-  </head>
+    <script src="https://kit.fontawesome.com/6a68f491ff.js" crossorigin="anonymous"></script>  </head>
   <body>
     <section class="container" id="left">
       <input
         id="search"
         type="search"
         placeholder="Search user"
-        onkeyup="setTimeout(search, 300)"
-      />
+        onkeyup="setTimeout(search, 300)">
+        <i id="searchIcon" class="fa-solid fa-magnifying-glass" onclick="setTimeout(search, 300)"></i>
+          </input>
     </section>
     <section class="container" id="right">
       <button onclick="displayUsers()">Generate Users</button>
