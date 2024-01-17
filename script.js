@@ -44,36 +44,18 @@ displayUsers = () => {
   });
 };
 
-// function search() {
-//   let users = generateUsers();
-//   const searchValue = document.getElementById("search").value.toLowerCase();
-
-//   console.log("SearchValue: ", searchValue);
-//   let filteredUsers = users.filter((user) => user.name.includes(searchValue));
-//   console.log("filtered: ", filteredUsers);
-//   if (usersList.innerHTML != "") {
-//     usersList.innerHTML = "";
-//     filteredUsers.map((user) => {
-//       usersList.innerHTML += `<li><b>ID</b>: ${user.id},
-//        <b>Name:</b> ${user.name}</li>`;
-//     });
-//   } else {
-//     usersList.innerHTML = `<li><b style="color: red;">Press generate button first.</b></li>`;
-//   }
-// }
-
 function handleUserClick(userId) {
   console.log(`handleUserClick called for user ${userId}`);
 
-  // // Increase the counter for the clicked element by 1
-  // const clickedCounterElement = document.getElementById(`counter${userId}`);
-  // if (clickedCounterElement) {
-  //   let count = parseInt(clickedCounterElement.dataset.count) || 0;
-  //   count++;
-  //   clickedCounterElement.textContent = `counter${userId}: ${count}`;
-  //   clickedCounterElement.dataset.count = count;
-  //   clickedCounterElement.style.display = "inline";
-  // }
+  // Increase the counter for the clicked element by 1
+  const clickedCounterElement = document.getElementById(`counter${userId}`);
+  if (clickedCounterElement) {
+    let count = parseInt(clickedCounterElement.dataset.count) || 0;
+    count++;
+    clickedCounterElement.textContent = `counter: ${count}`;
+    clickedCounterElement.dataset.count = count;
+    clickedCounterElement.style.display = "inline";
+  }
 
   // Decrease the counter for not clicked elements by -1
   const allCounters = document.querySelectorAll("#usersList span");
@@ -105,8 +87,8 @@ function search() {
       let count = parseInt(localStorage.getItem(`counter${user.id}`)) || 0;
 
       usersList.innerHTML += `<li onClick="handleUserClick(${user.id})">
-        <b>ID</b>: ${user.id},
-        <b>Name:</b> ${user.name},
+        <b>ID</b>: ${user.id};
+        <b>Name:</b> ${user.name};
         <span id="counter${user.id}"></span>
       </li>`;
     });
