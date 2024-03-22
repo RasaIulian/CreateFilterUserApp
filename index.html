@@ -13,13 +13,15 @@
         type="search"
         placeholder="Search user"
         onkeyup="setTimeout(search, 300)">
-        <i id="searchIcon" class="fa-solid fa-magnifying-glass" onclick="setTimeout(search, 300)"></i>
-          </input>
+        <i id="searchIcon" class="fa-solid fa-magnifying-glass"></i>
+      </input>
     </section>
     <section class="container" id="right">
       <button onclick="displayUsers()">Generate Users</button>
 
-      <ul id="usersList"></ul>
+      <ul id="usersList">
+        <!-- List will be dynamically generated here -->
+      </ul>
     </section>
 
     <script src="script.js"></script>

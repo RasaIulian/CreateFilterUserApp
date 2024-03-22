@@ -4,9 +4,9 @@
 // - {id: 2, name: ‘User 2’}
 const usersList = document.getElementById("usersList");
 const searchIcon = document.getElementById("searchIcon");
+let users = [];
 
 generateUsers = () => {
-  let users = [];
   for (let i = 1; i <= 100; i++) {
     users.push({ id: i, name: "User " + i });
   }
@@ -14,11 +14,14 @@ generateUsers = () => {
   return users;
 };
 
+// Call generateUsers to populate the users array initially
+generateUsers();
+
 displayUsers = () => {
   usersList.innerHTML = "";
   document.getElementById("search").value = "";
-  let users = generateUsers();
   searchIcon.style.display = "inline-block";
+  // let users = generateUsers();
 
   // Clear localStorage for counters before updating the UI
   users.forEach((user) => {
@@ -31,16 +34,21 @@ displayUsers = () => {
 
     // Check if the count is not 0, then append the counter span
     if (count !== 0) {
-      usersList.innerHTML += `<li onClick="handleUserClick(${user.id})>
+      usersList.innerHTML += `<li data-id="${user.id}" onClick="handleUserClick(${user.id})">
       <b>ID</b>: ${user.id};
-      <b>Name:</b> ${user.name};
-      <span id="counter${user.id}"></span></li>
+      <b>Name:</b> ${user.name}
+      <span id="counter${user.id}"></span>
+      <span class="remove" onClick="removeUser(${user.id})">x</span>
+
+      </li>
     `;
     } else {
-      usersList.innerHTML += `<li onClick="handleUserClick(${user.id})">
+      usersList.innerHTML += `<li data-id="${user.id}" onClick="handleUserClick(${user.id})">
     <b>ID</b>: ${user.id};
-    <b>Name:</b> ${user.name};
-    <b><span style="display: none;" id="counter${user.id}"></span></b></li>
+    <b>Name:</b> ${user.name}
+    <b><span style="display: none;" id="counter${user.id}"></span></b>
+    <span class="remove" onClick="removeUser(${user.id})">x</span>
+    </li>
     `;
     }
   });
@@ -61,46 +69,70 @@ function handleUserClick(userId) {
   }
 
   // Decrease the counter for not clicked elements by -1
-  const allCounters = document.querySelectorAll("#usersList span");
+  // const allCounters = document.querySelectorAll("#usersList span");
 
-  allCounters.forEach((counterElement) => {
-    const currentUserId = counterElement.id.replace("counter", "");
+  // allCounters.forEach((counterElement) => {
+  //   const currentUserId = counterElement.id.replace("counter", "");
 
-    if (currentUserId !== "" && currentUserId != userId) {
-      let count = parseInt(counterElement.dataset.count) || 0;
-      count--;
-      counterElement.textContent = `${count}`;
-      counterElement.dataset.count = count;
-      counterElement.style.display = "inline";
-    }
-  });
+  //   if (currentUserId !== "" && currentUserId != userId) {
+  //     let count = parseInt(counterElement.dataset.count) || 0;
+  //     count--;
+  //     counterElement.textContent = `${count}`;
+  //     counterElement.dataset.count = count;
+  //     counterElement.style.display = "inline";
+  //   }
+  // });
 }
 
 function search() {
-  let users = generateUsers();
   const searchValue = document.getElementById("search").value.toLowerCase();
   searchIcon.style.display = "none";
-  // console.log("SearchValue: ", searchValue);
+  // Filter the users based on the search value
   let filteredUsers = users.filter((user) => user.name.includes(searchValue));
-  // console.log("filtered: ", filteredUsers);
   if (
     usersList.innerHTML == "" ||
     usersList.innerHTML ==
       `<li><b style="color: red;">Press generate button first.</b></li>`
   ) {
     usersList.innerHTML = `<li><b style="color: red;">Press generate button first.</b></li>`;
-  } else if (usersList.innerHTML !== "" && filteredUsers.length > 0) {
+  } else if (filteredUsers.length > 0) {
     usersList.innerHTML = "";
     filteredUsers.map((user) => {
-      // let count = parseInt(localStorage.getItem(`counter${user.id}`)) || 0;
+      let count = parseInt(localStorage.getItem(`counter${user.id}`)) || 0;
 
-      usersList.innerHTML += `<li onClick="handleUserClick(${user.id})">
+      usersList.innerHTML += `<li data-id="${user.id}" onClick="handleUserClick(${user.id})">
           <b>ID</b>: ${user.id};
-          <b>Name:</b> ${user.name};
-          <b><span style="display: none" id="counter${user.id}"></span></b>
+          <b>Name:</b> ${user.name}
+          <b><span style="display: none" id="counter${user.id}">${count}</span></b>
+          <span class="remove" onClick="removeUser(${user.id})">x</span>
         </li>`;
     });
   } else if (filteredUsers.length === 0) {
     usersList.innerHTML = `<li><b style="color: red;">No match found.</b></li>`;
   }
 }
+
+removeUser = (userId) => {
+  // Create a copy of the users array
+  let updatedUsers = [...users];
+  // Find the index of the user in the users array
+  const indexToRemove = users.findIndex((user) => user.id === userId);
+  if (indexToRemove !== -1) {
+    // Remove the user from the copied array
+    updatedUsers.splice(indexToRemove, 1);
+
+    // Update the users array with the copied array
+    users = updatedUsers;
+
+    // Remove the user from the DOM
+    const liToRemove = document.querySelector(
+      `#usersList li[data-id="${userId}"]`
+    );
+    if (liToRemove) {
+      liToRemove.remove();
+    }
+
+    // Remove the counter from localStorage
+    localStorage.removeItem(`counter${userId}`);
+  }
+};
