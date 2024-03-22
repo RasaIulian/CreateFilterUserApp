@@ -40,7 +40,7 @@ displayUsers = () => {
       usersList.innerHTML += `<li onClick="handleUserClick(${user.id})">
     <b>ID</b>: ${user.id};
     <b>Name:</b> ${user.name};
-    <b><span style="display: none;" id="counter${user.id}"></span></li></b>
+    <b><span style="display: none;" id="counter${user.id}"></span></b></li>
     `;
     }
   });
