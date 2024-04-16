@@ -5,23 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>100 Users App</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="https://kit.fontawesome.com/6a68f491ff.js" crossorigin="anonymous"></script>  </head>
+    <script
+      src="https://kit.fontawesome.com/6a68f491ff.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
   <body>
     <section class="container" id="left">
       <input
         id="search"
         type="search"
         placeholder="Search user"
-        onkeyup="setTimeout(search, 300)">
-        <i id="searchIcon" onClick="setTimeout(search, 300)" class="fa-solid fa-magnifying-glass"></i>
-      </input>
+        onkeyup="setTimeout(search, 300)"
+      />
+      <i
+        id="searchIcon"
+        onClick="setTimeout(search, 300)"
+        class="fa-solid fa-magnifying-glass"
+      ></i>
     </section>
     <section class="container" id="right">
-      <button onclick="displayUsers()">Show Users</button>
-
-      <ul id="usersList">
-        <!-- List will be dynamically generated here -->
-      </ul>
+      <button onclick="displayUsers()" id="button">Generate users</button>
+      <ul id="usersList"></ul>
     </section>
 
     <script src="script.js"></script>

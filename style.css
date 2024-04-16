@@ -118,6 +118,7 @@ span:nth-child(1) {
 
 li:hover .remove {
   display: inline;
+  transition: color 0.2s ease-in;
 }
 .remove:hover {
   color: red;
