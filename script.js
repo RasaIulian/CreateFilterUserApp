@@ -8,10 +8,11 @@ const searchIcon = document.getElementById("searchIcon");
 const button = document.getElementById("button");
 let users = [];
 const generateUsers = () => {
+    // Clear localStorage before generating new users
+    localStorage.clear();
     for (let i = 1; i <= 100; i++) {
         users.push({ id: i, name: "User " + i });
     }
-    // console.log("Users:", users);
     return users;
 };
 // Call generateUsers to populate the users array initially
@@ -22,76 +23,41 @@ const displayUsers = () => {
     }
     const searchInputElement = document.getElementById("search");
     if (usersList) {
-        // Clear the usersList innerHTML
-        usersList.innerHTML = "";
+        usersList.innerHTML = ""; // Clear the usersList innerHTML
     }
     if (searchInputElement) {
-        searchInputElement.value = "";
+        searchInputElement.value = ""; // Clear the search input value
     }
     if (searchIcon) {
-        searchIcon.style.display = "inline-block";
+        searchIcon.style.display = "inline-block"; // Display the search icon
     }
-    // let users = generateUsers();
-    // Clear localStorage for counters before updating the UI
-    users.forEach((user) => {
-        localStorage.removeItem(`counter${user.id}`);
-    });
     // Iterate through users to create and append list items
     users.forEach((user) => {
+        // Retrieve the counter value from localStorage
         let count = parseInt(localStorage.getItem(`counter${user.id}`) || "0");
         // Check if the count is not 0, then append the counter span
-        if (count !== 0) {
-            if (usersList) {
-                usersList.innerHTML += `<li data-id="${user.id}" onClick="handleUserClick(${user.id})">
-      <b>ID</b>: ${user.id};
-      <b>Name:</b> ${user.name}
-      <span id="counter${user.id}"></span>
-      <span class="remove" onClick="removeUser(${user.id})">x</span>
-
-      </li>
-    `;
-            }
-        }
-        else if (usersList) {
-            {
-                usersList.innerHTML += `<li data-id="${user.id}" onClick="handleUserClick(${user.id})">
-    <b>ID</b>: ${user.id};
-    <b>Name:</b> ${user.name}
-    <b><span style="display: none;" id="counter${user.id}"></span></b>
-    <span class="remove" onClick="removeUser(${user.id})">x</span>
-    </li>
-    `;
-            }
+        if (usersList) {
+            usersList.innerHTML += `<li data-id="${user.id}" onClick="handleUserClick(${user.id})">
+          <b>ID</b>: ${user.id};
+          <b>Name:</b> ${user.name}
+          <b title="clicks counter"><span id="counter${user.id}" ${count !== 0 ? "" : 'style="display: none;"'}>${count}</span></b>
+          <span class="remove" onClick="removeUser(${user.id})">x</span>
+        </li>`;
         }
     });
 };
-//
+// Function to handle user click event
 function handleUserClick(userId) {
-    // console.log(`handleUserClick called for user ${userId}`);
-    if (searchIcon) {
-        searchIcon.style.display = "inline-block";
-    }
     // Increase the counter for the clicked element by 1
     const clickedCounterElement = document.getElementById(`counter${userId}`);
     if (clickedCounterElement) {
-        let count = parseInt(clickedCounterElement.dataset.count || "0");
+        let count = parseInt(clickedCounterElement.textContent || "0");
         count++;
         clickedCounterElement.textContent = count.toString();
-        clickedCounterElement.dataset.count = count.toString();
+        // Store the updated counter value in localStorage
+        localStorage.setItem(`counter${userId}`, count.toString());
         clickedCounterElement.style.display = "inline";
     }
-    // Decrease the counter for not clicked elements by -1
-    // const allCounters = document.querySelectorAll("#usersList span");
-    // allCounters.forEach((counterElement) => {
-    //   const currentUserId = counterElement.id.replace("counter", "");
-    //   if (currentUserId !== "" && currentUserId != userId) {
-    //     let count = parseInt(counterElement.dataset.count) || 0;
-    //     count--;
-    //     counterElement.textContent = `${count}`;
-    //     counterElement.dataset.count = count;
-    //     counterElement.style.display = "inline";
-    //   }
-    // });
 }
 const search = () => {
     const searchElement = document.getElementById("search");
@@ -110,11 +76,12 @@ const search = () => {
         else if (filteredUsers.length > 0) {
             usersList.innerHTML = "";
             filteredUsers.forEach((user) => {
+                // Retrieve the counter value from localStorage
                 let count = parseInt(localStorage.getItem(`counter${user.id}`) || "0");
                 usersList.innerHTML += `<li data-id="${user.id}" onClick="handleUserClick(${user.id})">
           <b>ID</b>: ${user.id};
           <b>Name:</b> ${user.name}
-          <b><span style="display: none" id="counter${user.id}">${count}</span></b>
+          <b title="clicks counter"><span id="counter${user.id}" ${count !== 0 ? "" : 'style="display: none;"'}>${count}</span></b>
           <span class="remove" onClick="removeUser(${user.id})">x</span>
         </li>`;
             });
@@ -125,21 +92,13 @@ const search = () => {
     }
 };
 const removeUser = (userId) => {
-    // Create a copy of the users array
-    let updatedUsers = [...users];
-    // Find the index of the user in the users array
-    const indexToRemove = users.findIndex((user) => user.id === userId);
-    if (indexToRemove !== -1) {
-        // Remove the user from the copied array
-        updatedUsers.splice(indexToRemove, 1);
-        // Update the users array with the copied array
-        users = updatedUsers;
-        // Remove the user from the DOM
-        const liToRemove = document.querySelector(`#usersList li[data-id="${userId}"]`);
-        if (liToRemove) {
-            liToRemove.remove();
-        }
-        // Remove the counter from localStorage
-        localStorage.removeItem(`counter${userId}`);
+    // Remove the user from the users array
+    users = users.filter((user) => user.id !== userId);
+    // Remove the user from the DOM
+    const liToRemove = document.querySelector(`#usersList li[data-id="${userId}"]`);
+    if (liToRemove) {
+        liToRemove.remove();
     }
+    // Remove the counter from localStorage
+    localStorage.removeItem(`counter${userId}`);
 };
