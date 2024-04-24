@@ -1,4 +1,5 @@
 Preview
-![image](https://github.com/RasaIulian/CreateFilterUserApp/assets/99275349/4bcb6de2-fe68-4bf7-8dad-5e8004f4f4ab)
+![image](https://github.com/RasaIulian/CreateFilterUserApp/assets/99275349/0cbdd18d-1aad-449a-8719-9dfd135951c4)
+
 
 
