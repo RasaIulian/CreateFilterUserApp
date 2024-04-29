@@ -5,6 +5,7 @@
 const usersList = document.getElementById("usersList");
 const searchIcon = document.getElementById("searchIcon");
 const button = document.getElementById("button");
+const searchElement = document.getElementById("search") as HTMLInputElement;
 
 interface User {
   id: number;
@@ -81,11 +82,7 @@ function handleUserClick(userId: number) {
 }
 
 const search = () => {
-  const searchElement = document.getElementById("search") as HTMLInputElement;
   const searchValue = searchElement.value.toLowerCase();
-  if (searchIcon) {
-    searchIcon.style.display = "none";
-  }
 
   // Filter the users based on the search value
   let filteredUsers = users.filter((user) => user.name.includes(searchValue));

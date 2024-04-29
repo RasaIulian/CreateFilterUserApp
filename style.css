@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 * {
@@ -38,7 +38,7 @@ textarea:focus {
   cursor: pointer;
 }
 .container {
-  margin: 10px;
+  margin: 1rem;
 }
 
 input {
@@ -53,7 +53,9 @@ input:focus {
   background-color: #fafafa;
   border: 2px solid black;
 }
-button {
+button,
+button:focus,
+button:active {
   padding: 3px 10px;
   border: 2px solid black;
   border-radius: 5px;
@@ -66,7 +68,7 @@ button {
 }
 button:hover {
   background-color: #fafafa;
-  border: 2px solid grey;
+  border-color: grey;
 }
 
 #left {
@@ -80,7 +82,7 @@ button:hover {
 }
 
 #right {
-  width: 80%;
+  width: calc(100vw - 17rem); /* Adjust width dynamically */
   position: relative;
   right: -15.3rem;
 }

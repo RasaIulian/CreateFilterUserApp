@@ -6,6 +6,7 @@
 const usersList = document.getElementById("usersList");
 const searchIcon = document.getElementById("searchIcon");
 const button = document.getElementById("button");
+const searchElement = document.getElementById("search");
 let users = [];
 const generateUsers = () => {
     // Clear localStorage before generating new users
@@ -60,11 +61,7 @@ function handleUserClick(userId) {
     }
 }
 const search = () => {
-    const searchElement = document.getElementById("search");
     const searchValue = searchElement.value.toLowerCase();
-    if (searchIcon) {
-        searchIcon.style.display = "none";
-    }
     // Filter the users based on the search value
     let filteredUsers = users.filter((user) => user.name.includes(searchValue));
     if (usersList) {
