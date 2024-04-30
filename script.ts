@@ -15,8 +15,10 @@ interface User {
 let users: User[] = [];
 
 const generateUsers = (): User[] => {
-  // Clear localStorage before generating new users
-  localStorage.clear();
+  // Clear user-related data from localStorage before generating new users
+  for (let i = 1; i <= 100; i++) {
+    localStorage.removeItem(`counter${i}`);
+  }
 
   for (let i = 1; i <= 100; i++) {
     users.push({ id: i, name: "User " + i });
